@@ -35,11 +35,13 @@ META_TYPES = {
 
 "start":                  ("e",  1, 0, 0, DATETIME,    None),              # Event start time
 "stop":                   ("e",  1, 0, 0, DATETIME,    None),
-"rundown_broadcast":      ("ei", 0, 0, 0, DATETIME,    {"format" : "%H:%M:%S"}),
-"rundown_scheduled":      ("ei", 0, 0, 0, DATETIME,    {"format" : "%H:%M:%S"}),
-"rundown_difference":     ("ei", 0, 0, 0, TIMECODE,    None),
-"rundown_symbol":         ("ei", 0, 0, 0, INTEGER,     None),
 "run_mode":               ("ei", 0, 0, 0, INTEGER,     None),
+"rundown_broadcast":      ("v",  0, 0, 0, DATETIME,    {"format" : "%H:%M:%S"}),
+"rundown_scheduled":      ("v",  0, 0, 0, DATETIME,    {"format" : "%H:%M:%S"}),
+"rundown_difference":     ("v",  0, 0, 0, TIMECODE,    None),
+"rundown_symbol":         ("v",  0, 0, 0, INTEGER,     None),
+"rundown_row":            ("v",  0, 0, 0, INTEGER,     None),
+"is_empty":               ("v",  0, 0, 0, BOOLEAN,     None),
 
 "solver":                 ("ai", 1, 0, 0, SELECT,      {"cs" : "urn:site:solvers"}),
 "mark_in":                ("ai", 1, 0, 0, TIMECODE,    None),
@@ -90,6 +92,7 @@ META_TYPES = {
 "date":                   ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
 "year":                   ("m", 1, 0, 0, INTEGER,     {"hide_null" : True}),
 "date/valid":             ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
+"date/valid/ott":         ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
 "rights":                 ("m", 1, 0, 0, SELECT,      {"cs" : "urn:immstudios:metadata-cs:ContentLicenceCS"}),
 "rights/description":     ("m", 1, 0, 1, TEXT,        None),
 "rights/ott":             ("m", 1, 0, 0, BOOLEAN,     None),
@@ -104,6 +107,11 @@ META_TYPES = {
 "commercial/campaign":    ("m", 1, 0, 0, INTEGER,     None),                       # Campaign event id
 "commercial/client":      ("m", 1, 0, 0, SELECT,      {"cs" : "urn:site:clients"}),
 
+"runs/daily":             ("m", 1, 0, 0, INTEGER,     None),
+"runs/weekly":            ("m", 1, 0, 0, INTEGER,     None),
+"runs/monthly":           ("m", 1, 0, 0, INTEGER,     None),
+"runs/total":             ("m", 1, 0, 0, INTEGER,     None),
+
 "album":                  ("m", 1, 0, 1, STRING,      None),
 "serie":                  ("m", 1, 0, 1, SELECT,      {"cs" : "urn:site:series"}),
 "serie/season":           ("m", 1, 0, 0, INTEGER,     None),
@@ -115,7 +123,7 @@ META_TYPES = {
 "id/imdb":                ("m", 1, 0, 8, STRING,      None),                       # IMDB ID for movies
 "id/guid":                ("m", 0, 0, 8, STRING,      None),                       # Created automatically when asset is created
 "id/vod":                 ("m", 0, 0, 8, STRING,      None),                       # VOD KEY
-"id/tape":                ("m", 0, 1, 8, STRING,      None),                        # Archive tape ID
+"id/tape":                ("m", 0, 1, 8, STRING,      None),                       # Archive tape ID
 
 "role/director":          ("m", 1, 0, 7, STRING,      None),
 "role/performer":         ("m", 1, 0, 7, STRING,      None),

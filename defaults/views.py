@@ -9,8 +9,11 @@ VIEWS = {
                 "title",
                 "subtitle",
                 "id/main",
+                "id_folder",
+                "genre",
                 "duration",
-                "mtime"
+                "ctime",
+                "mtime",
             ]
     },
 
@@ -25,7 +28,10 @@ VIEWS = {
                 "title",
                 "id/main",
                 "id_folder",
+                "notes",
                 "duration",
+                "ctime",
+                "mtime",
             ]
     },
 
@@ -36,6 +42,7 @@ VIEWS = {
         "folders" : [4],
         "states" : [0, 1, 2, 5, 11],
         "columns" : [
+                "qc/state",
                 "promoted",
                 "title",
                 "role/performer",
@@ -53,7 +60,10 @@ VIEWS = {
         "columns" : [
                 "qc/state",
                 "title",
+                "id/main",
                 "genre",
+                "ctime",
+                "mtime",
             ]
     },
 
@@ -66,10 +76,12 @@ VIEWS = {
         "columns" : [
                 "qc/state",
                 "title",
+                "id/main",
                 "commercial/client",
                 "duration",
-                "mtime",
                 "genre",
+                "ctime",
+                "mtime",
             ]
     },
 
@@ -89,7 +101,7 @@ VIEWS = {
         "columns" : [
                 "title",
                 "id/main",
-                "mtime"
+                "mtime",
             ]
     },
 
@@ -100,7 +112,19 @@ VIEWS = {
         "columns" : [
                 "title",
                 "id/main",
-                "mtime"
+                "mtime",
+            ]
+    },
+
+    13 : {
+        "title" : "Incoming",
+        "position" : 13,
+        "folders" : [12],
+        "columns" : [
+                "qc/state",
+                "title",
+                "duration",
+                "mtime",
             ]
     }
 
