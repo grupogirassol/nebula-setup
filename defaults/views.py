@@ -13,7 +13,6 @@ VIEWS = {
                 "genre",
                 "duration",
                 "ctime",
-                "mtime",
             ]
     },
 
@@ -31,7 +30,6 @@ VIEWS = {
                 "notes",
                 "duration",
                 "ctime",
-                "mtime",
             ]
     },
 
@@ -63,7 +61,6 @@ VIEWS = {
                 "id/main",
                 "genre",
                 "ctime",
-                "mtime",
             ]
     },
 
@@ -81,7 +78,6 @@ VIEWS = {
                 "duration",
                 "genre",
                 "ctime",
-                "mtime",
             ]
     },
 
@@ -124,6 +120,7 @@ VIEWS = {
                 "qc/state",
                 "title",
                 "duration",
+                "ctime",
                 "mtime",
             ]
     }
