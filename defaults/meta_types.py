@@ -46,7 +46,7 @@ META_TYPES = {
 "solver":                 ("ai", 1, 0, 0, SELECT,      {"cs" : "urn:site:solvers"}),
 "mark_in":                ("ai", 1, 0, 0, TIMECODE,    None),
 "mark_out":               ("ai", 1, 0, 0, TIMECODE,    None),
-"logo":                   ("ai", 1, 0, 0, SELECT,      {"cs" : "urn:site:logo", "widget" : "radio"}),
+"logo":                   ("ai", 1, 0, 0, SELECT,      {"cs" : "urn:site:logo"}),
 
 #
 # Asset specific
@@ -96,7 +96,7 @@ META_TYPES = {
 "rights":                 ("m", 1, 0, 0, SELECT,      {"cs" : "urn:immstudios:metadata-cs:ContentLicenceCS"}),
 "rights/description":     ("m", 1, 0, 1, TEXT,        None),
 "rights/ott":             ("m", 1, 0, 0, BOOLEAN,     None),
-"rights/spatial":         ("m", 1, 0, 0, SELECT,      {"cs" : "urn:site:rights-spatial", "widget" : "radio"}),
+"rights/spatial":         ("m", 1, 0, 0, SELECT,      {"cs" : "urn:site:rights-spatial"}),
 
 "source":                 ("m", 0, 0, 1, STRING,      None),                       # Youtube, Vimeo, PirateBay....
 "source/url":             ("m", 0, 0, 1, STRING,      None),
