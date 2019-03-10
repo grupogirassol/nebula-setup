@@ -2,26 +2,26 @@
 -- SYSTEM SETTINGS
 --
 
-CREATE TABLE IF NOT EXISTS public.settings (
+CREATE TABLE public.settings (
         key VARCHAR(255) NOT NULL,
         value JSONB,
         CONSTRAINT settings_pkey PRIMARY KEY (key)
     );
 
-CREATE TABLE IF NOT EXISTS public.storages (
+CREATE TABLE public.storages (
         id serial NOT NULL,
         settings JSONB NOT NULL,
         CONSTRAINT storages_pkey PRIMARY KEY (id)
     );
 
-CREATE TABLE IF NOT EXISTS public.channels (
+CREATE TABLE public.channels (
         id SERIAL NOT NULL,
         channel_type INTEGER NOT NULL,
         settings JSONB NOT NULL,
         CONSTRAINT channels_pkey PRIMARY KEY (id)
     );
 
-CREATE TABLE IF NOT EXISTS public.services (
+CREATE TABLE public.services (
         id SERIAL NOT NULL,
         service_type VARCHAR(50) NOT NULL,
         host VARCHAR(50) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS public.services (
         CONSTRAINT services_pkey PRIMARY KEY (id)
     );
 
-CREATE TABLE IF NOT EXISTS public.actions (
+CREATE TABLE public.actions (
         id SERIAL NOT NULL,
         service_type VARCHAR(255) NOT NULL,
         title VARCHAR(255) NOT NULL,
@@ -43,26 +43,26 @@ CREATE TABLE IF NOT EXISTS public.actions (
         CONSTRAINT actions_pkey PRIMARY KEY (id)
     );
 
-CREATE TABLE IF NOT EXISTS public.folders (
+CREATE TABLE public.folders (
         id SERIAL NOT NULL,
         settings JSONB,
         CONSTRAINT folders_pkey PRIMARY KEY (id)
     );
 
-CREATE TABLE IF NOT EXISTS public.meta_types (
+CREATE TABLE public.meta_types (
         key VARCHAR(127) NOT NULL,
         settings JSONB NOT NULL,
         CONSTRAINT meta_types_pkey PRIMARY KEY (key)
     );
 
-CREATE TABLE IF NOT EXISTS public.cs (
+CREATE TABLE public.cs (
         cs VARCHAR(255) NOT NULL,
         value VARCHAR(255) NOT NULL,
         settings JSONB,
         CONSTRAINT cs_pkey PRIMARY KEY (cs, value)
     );
 
-CREATE TABLE IF NOT EXISTS public.views (
+CREATE TABLE public.views (
         id SERIAL NOT NULL,
         settings JSONB NOT NULL,
         CONSTRAINT views_pkey PRIMARY KEY (id)
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS public.views (
 
 -- ASSETS
 
-CREATE TABLE IF NOT EXISTS public.assets (
+CREATE TABLE public.assets (
         id SERIAL NOT NULL,
         id_folder INTEGER NOT NULL,
         content_type INTEGER NOT NULL,
@@ -87,16 +87,16 @@ CREATE TABLE IF NOT EXISTS public.assets (
         CONSTRAINT assets_pkey PRIMARY KEY (id)
     );
 
-CREATE INDEX IF NOT EXISTS idx_folder ON assets(id_folder);
-CREATE INDEX IF NOT EXISTS idx_content_type ON assets(content_type);
-CREATE INDEX IF NOT EXISTS idx_media_type ON assets(media_type);
-CREATE INDEX IF NOT EXISTS idx_status ON assets(id_folder);
-CREATE INDEX IF NOT EXISTS idx_ctime ON assets(ctime);
-CREATE INDEX IF NOT EXISTS idx_mtime ON assets(mtime);
+CREATE INDEX idx_folder ON assets(id_folder);
+CREATE INDEX idx_content_type ON assets(content_type);
+CREATE INDEX idx_media_type ON assets(media_type);
+CREATE INDEX idx_status ON assets(id_folder);
+CREATE INDEX idx_ctime ON assets(ctime);
+CREATE INDEX idx_mtime ON assets(mtime);
 
 -- BINS
 
-CREATE TABLE IF NOT EXISTS public.bins (
+CREATE TABLE public.bins (
         id SERIAL NOT NULL,
         bin_type INTEGER DEFAULT 0,
         meta JSONB,
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS public.bins (
 
 -- ITEMS
 
-CREATE TABLE IF NOT EXISTS public.items (
+CREATE TABLE public.items (
         id SERIAL NOT NULL,
         id_asset INTEGER NOT NULL, -- can be zero (default, virtual item)
         id_bin INTEGER REFERENCES public.bins(id),
@@ -114,12 +114,12 @@ CREATE TABLE IF NOT EXISTS public.items (
         CONSTRAINT items_pkey PRIMARY KEY (id)
     );
 
-CREATE INDEX IF NOT EXISTS idx_items_asset ON items(id_asset);
-CREATE INDEX IF NOT EXISTS idx_items_bin ON items(id_bin);
+CREATE INDEX idx_items_asset ON items(id_asset);
+CREATE INDEX idx_items_bin ON items(id_bin);
 
 -- EVENTS
 
-CREATE TABLE IF NOT EXISTS public.events (
+CREATE TABLE public.events (
         id SERIAL NOT NULL,
         id_channel INTEGER NOT NULL,
         start INTEGER NOT NULL,
@@ -129,13 +129,13 @@ CREATE TABLE IF NOT EXISTS public.events (
         CONSTRAINT events_pkey PRIMARY KEY (id)
     );
 
-CREATE INDEX IF NOT EXISTS idx_event_channel ON events(id_channel);
-CREATE INDEX IF NOT EXISTS idx_event_start ON events(start);
-CREATE INDEX IF NOT EXISTS idx_event_magic ON events(id_magic);
+CREATE INDEX idx_event_channel ON events(id_channel);
+CREATE INDEX idx_event_start ON events(start);
+CREATE INDEX idx_event_magic ON events(id_magic);
 
 -- USERS
 
-CREATE TABLE IF NOT EXISTS public.users (
+CREATE TABLE public.users (
         id SERIAL NOT NULL,
         login VARCHAR(255) UNIQUE,
         password VARCHAR(255) NOT NULL,
@@ -145,29 +145,29 @@ CREATE TABLE IF NOT EXISTS public.users (
 
 -- FULLTEXT INDEX
 
-CREATE TABLE IF NOT EXISTS public.ft (
+CREATE TABLE public.ft (
         id INTEGER NOT NULL,
         object_type INTEGER NOT NULL,
         weight INTEGER DEFAULT 0,
         value VARCHAR(255)
     );
 
-CREATE INDEX IF NOT EXISTS idx_ft_id ON ft(id);
-CREATE INDEX IF NOT EXISTS idx_ft_type ON ft(object_type);
-CREATE INDEX IF NOT EXISTS idx_ft ON ft(value text_pattern_ops);
+CREATE INDEX idx_ft_id ON ft(id);
+CREATE INDEX idx_ft_type ON ft(object_type);
+CREATE INDEX idx_ft ON ft(value text_pattern_ops);
 
 --
 -- AUX
 --
 
-CREATE TABLE IF NOT EXISTS public.hosts (
+CREATE TABLE public.hosts (
         hostname VARCHAR(255) NOT NULL,
         last_seen INTEGER NOT NULL DEFAULT 0,
         status JSONB,
         CONSTRAINT hosts_pkey PRIMARY KEY(hostname)
     );
 
-CREATE TABLE IF NOT EXISTS public.jobs (
+CREATE TABLE public.jobs (
         id SERIAL NOT NULL,
         id_action INTEGER NOT NULL,
         id_asset INTEGER,
@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS public.jobs (
         CONSTRAINT jobs_pkey PRIMARY KEY (id)
     );
 
-CREATE TABLE IF NOT EXISTS public.asrun (
+CREATE TABLE public.asrun (
         id SERIAL NOT NULL,
         id_channel INTEGER NOT NULL,
         id_item INTEGER REFERENCES public.items(id),
@@ -194,6 +194,6 @@ CREATE TABLE IF NOT EXISTS public.asrun (
         CONSTRAINT asrun_pkey PRIMARY KEY (id)
     );
 
-CREATE INDEX IF NOT EXISTS asrun_start_idx ON asrun(start);
-CREATE INDEX IF NOT EXISTS asrun_channel_idx ON asrun(id_channel);
-CREATE INDEX IF NOT EXISTS asrun_item_idx ON asrun(id_item);
+CREATE INDEX asrun_start_idx ON asrun(start);
+CREATE INDEX asrun_channel_idx ON asrun(id_channel);
+CREATE INDEX asrun_item_idx ON asrun(id_item);
