@@ -47,6 +47,7 @@ META_TYPES = {
 "mark_in":                ("ai", 1, 0, 0, TIMECODE,    None),
 "mark_out":               ("ai", 1, 0, 0, TIMECODE,    None),
 "logo":                   ("ai", 1, 0, 0, SELECT,      {"cs" : "urn:site:logo", "widget" : "radio"}),
+"loop":                   ("i",  1, 0, 0, BOOLEAN,     None),
 
 #
 # Asset specific
