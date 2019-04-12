@@ -87,7 +87,6 @@
   ["promoted"               , "Promoted"               , ""                  , ""],
   ["video/is_interlaced"    , "Is interlaced"          , "Interlaced"        , ""],
   ["video/aspect_ratio"     , "Aspect ratio"           , "Aspect"            , ""],
-  ["loop"                   , ""                       , ""                  , ""],
   ["rundown_broadcast"      , "Broadcast time"         , "Broadcast"         , ""],
   ["mtime"                  , "Modify time"            , "Modified"          , ""],
   ["id"                     , "ID"                     , "#"                 , ""],
