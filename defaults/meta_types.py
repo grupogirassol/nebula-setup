@@ -62,6 +62,7 @@ META_TYPES = {
 "subclips":               ("a", 1, 0, 0, REGIONS,     None),
 "article":                ("a", 1, 0, 1, TEXT,        {"mode" : "rich"}),
 "cue_sheet":              ("a", 1, 0, 1, TEXT,        None),
+"aired":                  ("a", 1, 0, 0, BOOLEAN,     None),
 
 #
 # Descriptive
@@ -81,29 +82,40 @@ META_TYPES = {
 "subtitle/original":      ("m", 1, 0, 8, STRING,      None),                       # dc.title.subtitle - Ancillary title information for the resource.
 "description/original":   ("m", 1, 0, 7, TEXT,        {"syntax" : "md"}),
 
-"language":               ("m", 1, 1, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ISO639_1LanguageCodeCS"}),
-"editorial_format":       ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialFormatCodeCS"}),
-"editorial_control":      ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialControlCodeCS"}),
-"genre":                  ("m", 1, 1, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ContentGenreCS"}),
-"origination":            ("m", 1, 0, 0, SELECT,      {"cs" : "urn:tva:metadata:cs:OriginationCS"}),
-"content_alert":          ("m", 1, 0, 0, LIST,        {"cs" : "urn:tva:metadata-cs:ContentAlertCS"}),
-"keywords":               ("m", 1, 0, 9, TEXT,        None),                       # Comma delimited keywords list
+"language":               ("m", 1, 1, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ISO639_1LanguageCodeCS", "order" : "alias"}),
+"editorial_format":       ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialFormatCodeCS", "mode" : "tree"}),
+"editorial_control":      ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:EditorialControlCodeCS", "mode" : "radio"}),
+"intended_audience":      ("m", 1, 0, 0, LIST,        {"cs" : "urn:ebu:metadata-cs:IntendedAudienceCodeCS", "mode" : "tree"}),
+"intention":              ("m", 1, 0, 0, LIST,        {"cs" : "urn:ebu:metadata-cs:IntentionCodeCS", "mode" : "tree"}),
+"genre":                  ("m", 1, 1, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ContentGenreCS", "mode" : "tree"}),
+"atmosphere":             ("m", 1, 1, 0, LIST,        {"cs" : "urn:tva:metadata-cs:AtmosphereCS", "order" : "alias"}),
+"place":                  ("m", 1, 1, 0, LIST,        {"cs" : "urn:tva:metadata-cs:PlaceTypeCS", "mode" : "tree"}),
 
-"date":                   ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
+"origination":            ("m", 1, 0, 0, SELECT,      {"cs" : "urn:tva:metadata:cs:OriginationCS", "mode" : "tree"}),
+"content_alert":          ("m", 1, 0, 0, LIST,        {"cs" : "urn:tva:metadata-cs:ContentAlertCS", "mode" : "tree"}),
+"content_alert/scheme":   ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:ContentAlertSchemeCodeCS", "mode" : "tree"}),
+"graphic_usage":          ("m", 1, 0, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:GraphicUsageTypeCodeCS"}),
+"keywords":               ("m", 1, 0, 9, STRING,      None),                       # Comma delimited keywords list
+
 "year":                   ("m", 1, 0, 0, INTEGER,     {"hide_null" : True}),
+"date":                   ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
 "date/valid":             ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
 "date/valid/ott":         ("m", 1, 0, 0, DATETIME,    {"mode" : "date"}),
+
 "rights":                 ("m", 1, 0, 0, SELECT,      {"cs" : "urn:immstudios:metadata-cs:ContentLicenceCS"}),
+"rights/type":            ("m", 1, 0, 0, LIST,        {"cs" : "urn:ebu:metadata-cs:RightTypeCodeCS"}),
+"rights/attribution":     ("m", 1, 0, 1, STRING,      None),
+"rights/attribution/url": ("m", 1, 0, 1, STRING,      None),
 "rights/description":     ("m", 1, 0, 1, TEXT,        None),
 "rights/ott":             ("m", 1, 0, 0, BOOLEAN,     None),
 "rights/spatial":         ("m", 1, 0, 0, SELECT,      {"cs" : "urn:site:rights-spatial"}),
 
 "source":                 ("m", 0, 0, 1, STRING,      None),                       # Youtube, Vimeo, PirateBay....
 "source/url":             ("m", 0, 0, 1, STRING,      None),
-"source/attribution":     ("m", 0, 0, 1, STRING,      None),
+"source/attribution":     ("m", 0, 0, 1, STRING,      None),                       # DEPRECATED
 "source/rating":          ("m", 0, 1, 0, INTEGER,     None),                       # Provided rating normalized to: from 0 (worst) to 100 (best)
 
-"commercial/content":     ("m", 1, 0, 0, LIST,        {"cs" : "urn:tva:metadata-cs:ContentCommercialCS"}),
+"commercial/content":     ("m", 1, 0, 0, SELECT,      {"cs" : "urn:tva:metadata-cs:ContentCommercialCS", "mode" : "tree"}),
 "commercial/campaign":    ("m", 1, 0, 0, INTEGER,     None),                       # Campaign event id
 "commercial/client":      ("m", 1, 0, 0, SELECT,      {"cs" : "urn:site:clients"}),
 
@@ -113,7 +125,7 @@ META_TYPES = {
 "runs/total":             ("m", 1, 0, 0, INTEGER,     None),
 
 "album":                  ("m", 1, 0, 1, STRING,      None),
-"serie":                  ("m", 1, 0, 1, SELECT,      {"cs" : "urn:site:series"}),
+"serie":                  ("m", 1, 0, 1, SELECT,      {"cs" : "urn:site:series", "order" : "alias"}),
 "serie/season":           ("m", 1, 0, 0, INTEGER,     None),
 "serie/episode":          ("m", 1, 0, 0, INTEGER,     None),
 
@@ -154,6 +166,7 @@ META_TYPES = {
 "video/aspect_ratio":     ("f", 0, 0, 0, FRACTION,    None),
 "video/aspect_ratio_f":   ("f", 0, 0, 0, NUMERIC,     None),
 "video/codec":            ("f", 0, 0, 0, STRING,      None),
+"video/display_format":   ("f", 1, 1, 0, SELECT,      {"cs" : "urn:ebu:metadata-cs:PictureDisplayFormatCodeCS"}),
 "audio/codec":            ("f", 0, 0, 0, STRING,      None),
 
 "qc/state":               ("q", 1, 1, 0, INTEGER,     None),              # Special widget 1 and 2 are reserved for Auto QC failed and passed states
@@ -172,5 +185,4 @@ META_TYPES = {
 "video/black":            ("q", 0, 0, 0, REGIONS,     None),              # Areas where video is black-only
 "video/static":           ("q", 0, 0, 0, REGIONS,     None),              # Areas with static image
 "video/is_interlaced":    ("q", 0, 0, 0, BOOLEAN,     None),
-
 }

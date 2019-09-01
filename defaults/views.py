@@ -8,12 +8,10 @@ VIEWS = {
                 "qc/state",
                 "title",
                 "subtitle",
-                "id/main",
-                "id_folder",
                 "genre",
+                "id_folder",
                 "duration",
                 "ctime",
-                "mtime",
             ]
     },
 
@@ -26,12 +24,10 @@ VIEWS = {
         "columns" : [
                 "qc/state",
                 "title",
-                "id/main",
                 "id_folder",
-                "notes",
+                "genre",
                 "duration",
                 "ctime",
-                "mtime",
             ]
     },
 
@@ -43,7 +39,6 @@ VIEWS = {
         "states" : [0, 1, 2, 5, 11],
         "columns" : [
                 "qc/state",
-                "promoted",
                 "title",
                 "role/performer",
                 "genre",
@@ -60,10 +55,8 @@ VIEWS = {
         "columns" : [
                 "qc/state",
                 "title",
-                "id/main",
                 "genre",
                 "ctime",
-                "mtime",
             ]
     },
 
@@ -76,12 +69,25 @@ VIEWS = {
         "columns" : [
                 "qc/state",
                 "title",
-                "id/main",
                 "commercial/client",
                 "duration",
-                "genre",
                 "ctime",
-                "mtime",
+            ]
+    },
+
+#
+# Packages
+#
+
+    30 : {
+        "title" : "Series",
+        "separator" : True,
+        "position" : 30,
+        "folders" : [13],
+        "columns" : [
+                "title",
+                "genre",
+                "editorial_format",
             ]
     },
 
@@ -89,43 +95,48 @@ VIEWS = {
 # Auxiliary views
 #
 
-    10 : {
-        "title" : "-",
-        "position" : 10,
-    },
 
-    11 : {
+    50 : {
         "title" : "Trash",
-        "position" : 11,
+        "separator" : True,
+        "position" : 50,
         "states" : [3],
         "columns" : [
                 "title",
-                "id/main",
+                "subtitle",
+                "id_folder",
+                "ctime",
                 "mtime",
             ]
     },
 
-    12 : {
+    51 : {
         "title" : "Archive",
-        "position" : 12,
+        "position" : 51,
         "states" : [4, 11],
         "columns" : [
                 "title",
-                "id/main",
+                "subtitle",
+                "id_folder",
+                "ctime",
                 "mtime",
             ]
     },
 
-    13 : {
+    52 : {
         "title" : "Incoming",
-        "position" : 13,
+        "position" : 52,
+        "states" : [0, 1, 2, 5, 11],
         "folders" : [12],
         "columns" : [
                 "qc/state",
                 "title",
+                "genre",
                 "duration",
+                "ctime",
                 "mtime",
             ]
-    }
+    },
+
 
 }  # END FOLDERS

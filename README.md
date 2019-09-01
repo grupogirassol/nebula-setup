@@ -87,11 +87,20 @@ Conversion nodes depend on ffmpeg. You may use
 to install it.
 
 
+Database schema
+---------------
+
+Create a database using `support/schema.sql`. If you are running PostgreSQL server and `nebula-setup` on the same machine,
+you may use `create_db.sh` script to create database user and database and apply the schema. Credentials provided in the
+`settings.json` file will be used in that case.
+
+
 Site template
 -------------
 
 Create a file `template/__init__.py` in the root directory of this repository to override settings from `defaults/` folder.
 
+Use `setup.py` to apply the template. This script can be also used later to modify site settings without tweaking database manually.
 
 ### Example configuration
 
@@ -278,3 +287,21 @@ is subject of changes.
 
 File ingest services based on Themis library. This service is not yet finished and its configuration
 is subject of changes.
+
+
+
+Acknowledgements
+----------------
+
+### EBUCore
+
+[EBU Tech 3293](https://tech.ebu.ch/MetadataEbuCore)
+
+
+### EBUCore ContentGenres Czech translation
+
+[Czech translation of the EBUContentGenre thesaurus](http://hdl.handle.net/11858/00-097C-0000-000D-EC91-2)
+
+Ircing, Pavel, 2013,
+LINDAT/CLARIN digital library at the Institute of Formal and Applied Linguistics (ÚFAL)
+Faculty of Mathematics and Physics, Charles University,
