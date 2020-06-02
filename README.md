@@ -36,7 +36,7 @@ Use `prerequisites.sh` script to install all required libraries and software
 ## NGINX
 
 Nebula also needs NGINX server with http push module  and mp4 module to be installed.
-Use [install.nginx.sh](https://github.com/immstudios/installers/blob/master/install.ffmpeg.sh)
+Use [install.nginx.sh](https://github.com/immstudios/installers/blob/master/install.nginx.sh)
 and create `/var/www/yoursitename/http.conf` file.
 
 Assuming your site name is "nebula" and NGINX server is running on the same
@@ -121,8 +121,8 @@ Use `setup.py` to apply the template. This script can be also used later to modi
 
 Assuming there are two machines:
 
-  - **192.168.1.90** - all in one nebula server + production storage
-  - **192.168.1.91** - caspar cg playout server
+  - **192.168.1.90** - All in one nebula server + production storage
+  - **192.168.1.91** - CasparCg playout server
 
 ```python
 
