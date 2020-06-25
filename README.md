@@ -39,24 +39,41 @@ Nebula also needs NGINX server with http push module  and mp4 module to be insta
 Use [install.nginx.sh](https://github.com/immstudios/installers/blob/master/install.nginx.sh)
 and create `/var/www/yoursitename/http.conf` file.
 
-Assuming your site name is "nebula" and NGINX server is running on the same
-machine as Nebula itself, you may use the following configuration:
+Following configuration example assumes that:
+
+ - your `site_name` is `nebula`
+ - nginx is running on the same machine as nebula hub/core server
+ - your internal network is 192.168.0.0/16
+ - there is NAT configured for ports 80 and 443 to the nginx server
+ - there is a DNS record "nebula.example.com" and let's encrypt configured.
 
 ```nginx
 server {
-    server_name          _;
-    set $nxcore_root    /mnt/nebula_01/.nx;
-
-    add_header          Access-Control-Allow-Headers    'origin, content-type, accept, user-agent, referer' always;
-    add_header          Access-Control-Allow-Origin     '*' always;
-
+    listen              80;
+    server_name         nebula.example.com;
+    server_tokens       off;
 
     location /msg_publish {
+        allow                           192.168.0.0/16;
+        deny                            all;
         nchan_publisher;
         nchan_channel_id                $arg_id;
         nchan_message_buffer_length     50;
         nchan_message_timeout           10s;
     }
+}
+
+
+server {
+    listen              443 ssl http2;
+    server_name         nebula.example.com;
+    server_tokens       off;
+
+    ssl_certificate             /etc/letsencrypt/live/example.com/fullchain.pem;
+    ssl_certificate_key         /etc/letsencrypt/live/example.com/privkey.pem;
+    ssl_trusted_certificate     /etc/letsencrypt/live/example.com/chain.pem;
+
+    set $nxcore_root           /mnt/nebula_01/.nx;
 
     location ~ /ws/(.*) {
         nchan_subscriber        websocket;
@@ -83,16 +100,30 @@ server {
     location ~* ^/tools/(.*)/static/(.*)$ {
         alias                   $nxcore_root/scripts/v5/webtools/$1/static/$2;
     }
+    
+    location /static {
+        proxy_pass              http://127.0.0.1:8080;
+        proxy_buffering         off;
+        add_header              Access-Control-Allow-Headers    'origin, content-type, accept, user-agent, referer' always;
+        add_header              Access-Control-Allow-Origin     '*' always;
+        proxy_set_header        Host        $host;
+        proxy_set_header        X-Real-IP   $remote_addr;
+    }
+
+    location ~ ^/(login|logout|ping|api|assets|detail|jobs|tool|services|passreset|settings|profile|$) {
+        proxy_pass              http://127.0.0.1:8080;
+        proxy_buffering         off;
+        add_header              Access-Control-Allow-Headers    'origin, content-type, accept, user-agent, referer' always;
+        add_header              Access-Control-Allow-Origin     '*' always;
+        proxy_set_header        Host        $host;
+        proxy_set_header        X-Real-IP   $remote_addr;
+    }
 
     location / {
-        proxy_pass              http://localhost:8080;
-        proxy_set_header        Host $host;
-        proxy_set_header        X-Real-IP $remote_addr;
+        return 404;
     }
 }
 ```
-
-:warning: *This is just a very simple configuration example. Always use https in production!*
 
 
 ## FFMpeg
@@ -121,8 +152,8 @@ Use `setup.py` to apply the template. This script can be also used later to modi
 
 Assuming there are two machines:
 
-  - **192.168.1.90** - All in one nebula server + production storage
-  - **192.168.1.91** - CasparCg playout server
+  - **192.168.1.90** - all in one nebula server + production storage
+  - **192.168.1.91** - caspar cg playout server
 
 ```python
 
@@ -219,8 +250,9 @@ using websockets.
 
 ```xml
 <service>
-    <relay>http://192.168.32.2</relay>
+    <relay>http://192.168.1.90</relay>
     <log_dir>/var/log/nebula</log_dir>
+    <log_ttl>30</log_ttl>
 </service>
 ```
 
@@ -293,16 +325,9 @@ Configuration example:
 <service script="dummy"/>
 ```
 
-### Analyzer
-
-Advanced content analysis. This service is not yet finished and its configuration
-is subject of changes.
-
 ### Import
 
-File ingest services based on Themis library. This service is not yet finished and its configuration
-is subject of changes.
-
+File ingest services based on Themis library.
 
 
 Acknowledgements
