@@ -2,17 +2,17 @@
 
 function install_db_server {
     echo "Installing DB server"
-    apt -y install postgresql
+    pacman -S postgresql
 }
 
 function install_memcached {
     echo "Installing memcached server"
-    apt -y install memcached
+    pacman -S memcached
 }
 
 function install_node {
     echo "Installing node server requirements"
-    apt install -y libmemcached-dev python3-pip cifs-utils zlib1g-dev python3-dev build-essential
+    pacman -S libmemcached python-pip cifs-utils zlib python base-devel
     pip3 install pylibmc psutil psycopg2-binary pyyaml requests
 }
 
@@ -75,4 +75,3 @@ fi
 if [ $do_install_core == 1 ]; then
     install_core || exit 1
 fi
-
