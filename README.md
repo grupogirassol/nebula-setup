@@ -15,6 +15,7 @@ Yes. This is what we do for a living.
 
 Prerequisites
 -------------
+This fork `prerequisites.sh`is adapted to get the necessary libraries and software from archlinux repositories.
 
 Use `prerequisites.sh` script to install all required libraries and software
 
@@ -49,7 +50,7 @@ server {
         nchan_message_buffer_length     50;
         nchan_message_timeout           10s;
     }
-    
+
     location / {
         return                  302 https://$host$request_uri;
     }
@@ -93,7 +94,7 @@ server {
     location ~* ^/tools/(.*)/static/(.*)$ {
         alias                   $nxcore_root/scripts/v5/webtools/$1/static/$2;
     }
-    
+
     location /static {
         proxy_pass              http://127.0.0.1:8080;
         proxy_buffering         off;
@@ -113,7 +114,7 @@ server {
             add_header          Content-Length                  0;
             return              204;
         }
-    
+
         proxy_pass              http://127.0.0.1:8080;
         proxy_buffering         off;
         add_header              Access-Control-Allow-Origin     '*' always;
