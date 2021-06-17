@@ -1,4 +1,4 @@
-Nebula setup
+Nebula setup for archlinux
 ============
 
 Nebula installers and configuration tools.
@@ -15,7 +15,7 @@ Yes. This is what we do for a living.
 
 Prerequisites
 -------------
-This fork `prerequisites.sh`is adapted to get the necessary libraries and software from archlinux repositories.
+This fork `prerequisites.sh`is adapted to get the necessary libraries and software from archlinux repositories. For the original script you should check [Nebula's original source code](https://github.com/nebulabroadcast/nebula-setup)
 
 Use `prerequisites.sh` script to install all required libraries and software
 
